@@ -18,6 +18,9 @@ The clock face is a **replaceable image file**. Hands and tick marks are drawn o
 | **Hand colours** | Separate hex colour for each hand |
 | **Hand thickness** | Separate multiplier for each hand (0.3× to 3×) |
 | **Time zone** | Any system time zone |
+| **Date** | Optional weekday, day and month on the lower part of the face, with its own colour |
+| **Settings cogwheel** | One click on the cogwheel just below the top of the face opens Settings |
+| **About** | Version and credits at the bottom of the Settings window |
 | **Persisted settings** | Saved to `%APPDATA%\OverlayClock\settings.json` |
 
 ## Requirements
@@ -47,7 +50,8 @@ The output goes to `OverlayClock\bin\Release\net10.0-windows\win-x64\publish\`. 
 | Action | How |
 |---|---|
 | **Move** | Left-click and drag anywhere on the clock |
-| **Settings** | Double-click, or right-click → Settings… |
+| **Settings** | Click the cogwheel, double-click the clock, or right-click → Settings… |
+| **Show the date** | Settings → Appearance → Show date on clock face |
 | **Toggle always on top** | Right-click → Always on Top |
 | **Exit** | Right-click → Exit |
 

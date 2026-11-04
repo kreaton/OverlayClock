@@ -25,6 +25,9 @@ namespace OverlayClock.Models
         // Show seconds hand
         public bool ShowSeconds { get; set; } = true;
 
+        // Show the date on the lower part of the clock face
+        public bool ShowDate { get; set; } = false;
+
         // Window position
         public double WindowLeft { get; set; } = 100;
         public double WindowTop { get; set; } = 100;
@@ -36,6 +39,7 @@ namespace OverlayClock.Models
         public string MajorTickColor { get; set; } = "#1A1A1A";
         public string MinorTickColor { get; set; } = "#555555";
         public string CenterDotColor { get; set; } = "#CC2222";
+        public string DateColor { get; set; } = "#1A1A1A";
 
         // Hand thickness multipliers (relative to default)
         public double HourHandThickness { get; set; } = 1.0;

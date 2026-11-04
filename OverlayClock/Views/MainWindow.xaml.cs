@@ -158,6 +158,46 @@ namespace OverlayClock.Views
                 };
                 OverlayCanvas.Children.Add(line);
             }
+
+            // Date goes in the static layer so the hands sweep over it
+            _dateText = null;
+            if (_settings.ShowDate)
+            {
+                _dateText = new TextBlock
+                {
+                    Width            = _faceSize,
+                    TextAlignment    = TextAlignment.Center,
+                    FontFamily       = new FontFamily("Segoe UI"),
+                    FontWeight       = FontWeights.SemiBold,
+                    FontSize         = Math.Max(9, r * 0.10),
+                    Foreground       = new SolidColorBrush(ParseColor(_settings.DateColor)),
+                    IsHitTestVisible = false
+                };
+                Canvas.SetLeft(_dateText, 0);
+                Canvas.SetTop(_dateText, r * 1.40);
+                OverlayCanvas.Children.Add(_dateText);
+            }
+
+            // Cogwheel sits just below the top (0°) major tick, which ends at 0.80 r
+            double cogSize = Math.Max(16, r * 0.16);
+            BtnCog.Width      = cogSize;
+            BtnCog.Height     = cogSize;
+            BtnCog.Foreground = new SolidColorBrush(majorColor);
+            Canvas.SetLeft(BtnCog, r - cogSize / 2);
+            Canvas.SetTop(BtnCog, r - r * 0.68 - cogSize / 2);
+        }
+
+        // ── Date ──────────────────────────────────────────────────────────────
+        private TextBlock? _dateText;
+
+        private void UpdateDate(TimeZoneInfo tz)
+        {
+            if (_dateText == null) return;
+
+            // Runs on every tick so the date rolls over at midnight in the chosen zone
+            var text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz).ToString("ddd d MMM");
+            if (_dateText.Text != text)
+                _dateText.Text = text;
         }
 
         // ── Hands ─────────────────────────────────────────────────────────────
@@ -181,6 +221,8 @@ namespace OverlayClock.Views
             var mode    = _settings.ActiveMode();
             var tz      = _settings.ActiveTimeZone();
             var (hourAngle, minuteAngle, secondAngle) = mode.GetAngles(DateTime.UtcNow, tz);
+
+            UpdateDate(tz);
 
             double r   = Centre;
             double bas = r * 0.010; // base thickness unit

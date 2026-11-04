@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Win32;
 using OverlayClock.Models;
@@ -62,6 +64,7 @@ namespace OverlayClock.Views
             // Checkboxes
             ChkAlwaysOnTop.IsChecked = _settings.AlwaysOnTop;
             ChkShowSeconds.IsChecked = _settings.ShowSeconds;
+            ChkShowDate.IsChecked    = _settings.ShowDate;
             ChkShowMajor.IsChecked   = _settings.ShowMajorTicks;
             ChkShowMinor.IsChecked   = _settings.ShowMinorTicks;
 
@@ -71,6 +74,11 @@ namespace OverlayClock.Views
             TxtSecondColor.Text     = _settings.SecondHandColor;
             TxtMajorTickColor.Text  = _settings.MajorTickColor;
             TxtMinorTickColor.Text  = _settings.MinorTickColor;
+            TxtDateColor.Text       = _settings.DateColor;
+
+            // About
+            TxtVersion.Text = $"OverlayClock {Assembly.GetExecutingAssembly().GetName().Version?.ToString(3)}";
+            TxtRuntime.Text = RuntimeInformation.FrameworkDescription;
 
             // Thickness sliders
             SldHourThick.Value   = _settings.HourHandThickness;
@@ -146,6 +154,7 @@ namespace OverlayClock.Views
             _settings.WindowOpacity  = SldOpacity.Value;
             _settings.AlwaysOnTop    = ChkAlwaysOnTop.IsChecked == true;
             _settings.ShowSeconds    = ChkShowSeconds.IsChecked == true;
+            _settings.ShowDate       = ChkShowDate.IsChecked == true;
             _settings.ShowMajorTicks = ChkShowMajor.IsChecked == true;
             _settings.ShowMinorTicks = ChkShowMinor.IsChecked == true;
 
@@ -154,6 +163,7 @@ namespace OverlayClock.Views
             _settings.SecondHandColor  = TxtSecondColor.Text.Trim();
             _settings.MajorTickColor   = TxtMajorTickColor.Text.Trim();
             _settings.MinorTickColor   = TxtMinorTickColor.Text.Trim();
+            _settings.DateColor        = TxtDateColor.Text.Trim();
 
             _settings.HourHandThickness   = SldHourThick.Value;
             _settings.MinuteHandThickness = SldMinuteThick.Value;

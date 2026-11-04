@@ -34,5 +34,40 @@
         <!-- Overlay canvas for tick marks and hands (same size as FaceImage) -->
         <Canvas x:Name="OverlayCanvas"/>
 
+        <!-- Settings cogwheel; above the hands so it stays clickable as they pass.
+             The near-transparent background keeps the whole button clickable on
+             faces with transparent areas. Size and position are set in code-behind. -->
+        <Button x:Name="BtnCog"
+                Click="OpenSettings_Click"
+                ToolTip="Settings"
+                AutomationProperties.Name="Settings"
+                Focusable="False"
+                Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Opacity" Value="0.7"/>
+                    <Setter Property="Background" Value="#01000000"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}">
+                                    <Viewbox>
+                                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                                   Text="&#xE713;"
+                                                   Foreground="{TemplateBinding Foreground}"/>
+                                    </Viewbox>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
     </Canvas>
 </Window>

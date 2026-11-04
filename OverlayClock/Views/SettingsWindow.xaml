@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="OverlayClock — Settings"
         Width="480" SizeToContent="Height"
+        MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         Background="#F3F3F3"
@@ -178,6 +179,7 @@
 
                 <CheckBox x:Name="ChkAlwaysOnTop" Content="Always on top"        Margin="0,4"/>
                 <CheckBox x:Name="ChkShowSeconds" Content="Show seconds hand"     Margin="0,2"/>
+                <CheckBox x:Name="ChkShowDate"    Content="Show date on clock face" Margin="0,2"/>
                 <CheckBox x:Name="ChkShowMajor"   Content="Show major tick marks" Margin="0,2"/>
                 <CheckBox x:Name="ChkShowMinor"   Content="Show minor tick marks" Margin="0,2"/>
 
@@ -196,6 +198,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Hour hand"   Style="{StaticResource RowLabel}" Grid.Row="0" Grid.Column="0"/>
                     <TextBox x:Name="TxtHourColor"      Grid.Row="0" Grid.Column="1" Margin="0,2"/>
@@ -207,6 +210,8 @@
                     <TextBox x:Name="TxtMajorTickColor" Grid.Row="3" Grid.Column="1" Margin="0,2"/>
                     <TextBlock Text="Minor ticks" Style="{StaticResource RowLabel}" Grid.Row="4" Grid.Column="0"/>
                     <TextBox x:Name="TxtMinorTickColor" Grid.Row="4" Grid.Column="1" Margin="0,2"/>
+                    <TextBlock Text="Date"        Style="{StaticResource RowLabel}" Grid.Row="5" Grid.Column="0"/>
+                    <TextBox x:Name="TxtDateColor"      Grid.Row="5" Grid.Column="1" Margin="0,2"/>
                 </Grid>
 
                 <!-- HAND THICKNESS -->
@@ -241,6 +246,14 @@
                     <TextBlock x:Name="TxtSecondThick" Grid.Row="2" Grid.Column="2"
                                Foreground="#555555" FontSize="11" VerticalAlignment="Center" Margin="6,0,0,0"/>
                 </Grid>
+
+                <!-- ABOUT -->
+                <TextBlock Text="ABOUT" Style="{StaticResource SectionHead}"/>
+                <TextBlock x:Name="TxtVersion" FontWeight="SemiBold"/>
+                <TextBlock x:Name="TxtRuntime" Foreground="#555555" FontSize="11" Margin="0,2,0,6"/>
+                <TextBlock Text="Created by Per Hejndorf" Foreground="#333333"/>
+                <TextBlock Text="Built with WPF on .NET 10, with help from Claude Code"
+                           Foreground="#555555" FontSize="11" TextWrapping="Wrap" Margin="0,2,0,0"/>
 
                 <Separator Margin="0,16,0,0"/>
 
