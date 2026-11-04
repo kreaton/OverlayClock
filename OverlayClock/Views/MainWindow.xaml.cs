@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using OverlayClock.Models;
+using OverlayClock.Services;
 
 namespace OverlayClock.Views
 {
@@ -159,24 +160,13 @@ namespace OverlayClock.Views
                 OverlayCanvas.Children.Add(line);
             }
 
-            // Date goes in the static layer so the hands sweep over it
-            _dateText = null;
-            if (_settings.ShowDate)
-            {
-                _dateText = new TextBlock
-                {
-                    Width            = _faceSize,
-                    TextAlignment    = TextAlignment.Center,
-                    FontFamily       = new FontFamily("Segoe UI"),
-                    FontWeight       = FontWeights.SemiBold,
-                    FontSize         = Math.Max(9, r * 0.10),
-                    Foreground       = new SolidColorBrush(ParseColor(_settings.DateColor)),
-                    IsHitTestVisible = false
-                };
-                Canvas.SetLeft(_dateText, 0);
-                Canvas.SetTop(_dateText, r * 1.40);
-                OverlayCanvas.Children.Add(_dateText);
-            }
+            // Date link on the lower part of the face
+            DateHost.Visibility = _settings.ShowDate ? Visibility.Visible : Visibility.Collapsed;
+            DateHost.Width      = _faceSize;
+            BtnDate.FontSize    = Math.Max(9, r * 0.10);
+            BtnDate.Foreground  = new SolidColorBrush(ParseColor(_settings.DateColor));
+            Canvas.SetLeft(DateHost, 0);
+            Canvas.SetTop(DateHost, r * 1.40);
 
             // Cogwheel sits just below the top (0°) major tick, which ends at 0.80 r
             double cogSize = Math.Max(16, r * 0.16);
@@ -188,16 +178,21 @@ namespace OverlayClock.Views
         }
 
         // ── Date ──────────────────────────────────────────────────────────────
-        private TextBlock? _dateText;
-
         private void UpdateDate(TimeZoneInfo tz)
         {
-            if (_dateText == null) return;
+            if (!_settings.ShowDate) return;
 
             // Runs on every tick so the date rolls over at midnight in the chosen zone
             var text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz).ToString("ddd d MMM");
-            if (_dateText.Text != text)
-                _dateText.Text = text;
+            if (BtnDate.Content as string != text)
+                BtnDate.Content = text;
+        }
+
+        private void OpenCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!CalendarLauncher.TryOpen())
+                MessageBox.Show(this, "No default calendar app could be opened.", "OverlayClock",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // ── Hands ─────────────────────────────────────────────────────────────

@@ -34,6 +34,41 @@
         <!-- Overlay canvas for tick marks and hands (same size as FaceImage) -->
         <Canvas x:Name="OverlayCanvas"/>
 
+        <!-- Date link to the calendar; above the hands so it stays clickable as they pass.
+             The host spans the face to centre the button; only the button takes clicks. -->
+        <Grid x:Name="DateHost">
+            <Button x:Name="BtnDate"
+                    Click="OpenCalendar_Click"
+                    ToolTip="Open calendar"
+                    AutomationProperties.Name="Open calendar"
+                    HorizontalAlignment="Center"
+                    FontFamily="Segoe UI"
+                    FontWeight="SemiBold"
+                    Focusable="False"
+                    Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#01000000"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" Padding="4,1">
+                                        <TextBlock Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                                   TextDecorations="Underline"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
         <!-- Settings cogwheel; above the hands so it stays clickable as they pass.
              The near-transparent background keeps the whole button clickable on
              faces with transparent areas. Size and position are set in code-behind. -->

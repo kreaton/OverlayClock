@@ -18,7 +18,7 @@ The clock face is a **replaceable image file**. Hands and tick marks are drawn o
 | **Hand colours** | Separate hex colour for each hand |
 | **Hand thickness** | Separate multiplier for each hand (0.3× to 3×) |
 | **Time zone** | Any system time zone |
-| **Date** | Optional weekday, day and month on the lower part of the face, with its own colour |
+| **Date** | Optional weekday, day and month on the lower part of the face, with its own colour; click it to open your calendar |
 | **Settings cogwheel** | One click on the cogwheel just below the top of the face opens Settings |
 | **About** | Version and credits at the bottom of the Settings window |
 | **Persisted settings** | Saved to `%APPDATA%\OverlayClock\settings.json` |
@@ -52,6 +52,7 @@ The output goes to `OverlayClock\bin\Release\net10.0-windows\win-x64\publish\`. 
 | **Move** | Left-click and drag anywhere on the clock |
 | **Settings** | Click the cogwheel, double-click the clock, or right-click → Settings… |
 | **Show the date** | Settings → Appearance → Show date on clock face |
+| **Open your calendar** | Click the date. This starts the app Windows uses for `.ics` files, which may not open on its calendar view |
 | **Toggle always on top** | Right-click → Always on Top |
 | **Exit** | Right-click → Exit |
 
@@ -93,6 +94,8 @@ OverlayClock/
 ├── Models/
 │   ├── ClockMode.cs              time system definitions and angle math
 │   └── ClockSettings.cs          persisted preferences
+├── Services/
+│   └── CalendarLauncher.cs       finds and opens the default calendar app
 ├── Views/
 │   ├── MainWindow.xaml/.cs       transparent overlay and rendering
 │   └── SettingsWindow.xaml/.cs   settings panel
