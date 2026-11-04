@@ -77,7 +77,12 @@ namespace OverlayClock.Views
             TxtDateColor.Text       = _settings.DateColor;
 
             // About
-            TxtVersion.Text = $"OverlayClock {Assembly.GetExecutingAssembly().GetName().Version?.ToString(3)}";
+            // "1.1.0+b200c56e..." - the part after + is the git commit the build was made from
+            var version = (Assembly.GetExecutingAssembly()
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "0.0.0")
+                .Split('+', 2);
+            var commit = version.Length > 1 ? $" · {version[1][..Math.Min(7, version[1].Length)]}" : "";
+            TxtVersion.Text = $"OverlayClock {version[0]}{commit}";
             TxtRuntime.Text = RuntimeInformation.FrameworkDescription;
 
             // Thickness sliders
