@@ -45,6 +45,10 @@ dotnet publish OverlayClock -c Release -r win-x64 --self-contained true -p:Publi
 
 The output goes to `OverlayClock\bin\Release\net10.0-windows\win-x64\publish\`. Keep the folder's contents together: the EXE needs the native WPF DLLs beside it, and it loads the default clock face from the `Assets` folder.
 
+## Releases
+
+Every push to `main` builds the app on GitHub Actions and publishes a new release, one patch version higher than the last (`.github/workflows/release.yml`). Installed copies pick it up through right-click → Check for updates…. You can also start a release by hand from the repository's Actions tab.
+
 ## Usage
 
 | Action | How |
