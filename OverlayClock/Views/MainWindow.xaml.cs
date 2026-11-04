@@ -8,11 +8,17 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using OverlayClock.Models;
 using OverlayClock.Services;
+using Velopack;
+using Velopack.Sources;
 
 namespace OverlayClock.Views
 {
     public partial class MainWindow : Window
     {
+        // Public GitHub repo whose releases BuildRelease.ps1 uploads to
+        private const string RepoUrl = "https://github.com/kreaton/OverlayClock";
+
+        private readonly UpdateManager _updateManager = new(new GithubSource(RepoUrl, accessToken: null, prerelease: false));
         private ClockSettings _settings = ClockSettings.Load();
         private readonly DispatcherTimer _timer = new();
 
@@ -326,6 +332,41 @@ namespace OverlayClock.Views
         private void AlwaysOnTop_Click(object sender, RoutedEventArgs e)
         {
             AlwaysOnTop = !AlwaysOnTop;
+        }
+
+        private async void CheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_updateManager.IsInstalled)
+            {
+                MessageBox.Show(this, "Updates are only available in the installed app.", "Update Check", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                var newVersion = await _updateManager.CheckForUpdatesAsync();
+                if (newVersion == null)
+                {
+                    MessageBox.Show(this, "No updates available.", "Update Check", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var confirm = MessageBox.Show(this,
+                    $"A new version ({newVersion.TargetFullRelease.Version}) is available. Do you want to download and install it now?",
+                    "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (confirm != MessageBoxResult.Yes)
+                    return;
+
+                await _updateManager.DownloadUpdatesAsync(newVersion);
+
+                // Install and restart once this process has exited the normal way, saving the settings
+                _updateManager.WaitExitThenApplyUpdates(newVersion);
+                Exit_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"Update failed: {ex.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

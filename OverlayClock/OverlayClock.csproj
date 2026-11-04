@@ -11,6 +11,8 @@
     <ApplicationIcon>Assets\clock.ico</ApplicationIcon>
     <Version>1.1.0</Version>
     <Authors>Per Hejndorf</Authors>
+    <!-- Velopack's Program.Main replaces the generated WPF entry point -->
+    <StartupObject>OverlayClock.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,10 @@
     <None Update="Assets\clockface_default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Velopack" Version="1.2.161" />
   </ItemGroup>
 
 </Project>

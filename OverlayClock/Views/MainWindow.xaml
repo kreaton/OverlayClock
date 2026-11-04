@@ -13,6 +13,7 @@
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="⚙  Settings…"    Click="OpenSettings_Click" FontFamily="Segoe UI" />
+            <MenuItem Header="⟳  Check for updates…" Click="CheckForUpdates_Click" FontFamily="Segoe UI" />
             <Separator/>
             <MenuItem Header="📌 Always on Top" Click="AlwaysOnTop_Click"  FontFamily="Segoe UI"
                       IsCheckable="True" IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"/>
