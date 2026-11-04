@@ -1,0 +1,38 @@
+<Window x:Class="OverlayClock.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OverlayClock"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        SizeToContent="WidthAndHeight"
+        Topmost="True">
+
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="⚙  Settings…"    Click="OpenSettings_Click" FontFamily="Segoe UI" />
+            <Separator/>
+            <MenuItem Header="📌 Always on Top" Click="AlwaysOnTop_Click"  FontFamily="Segoe UI"
+                      IsCheckable="True" IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"/>
+            <Separator/>
+            <MenuItem Header="✕  Exit"          Click="Exit_Click"         FontFamily="Segoe UI"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+
+    <!-- Root canvas; size is set in code-behind to match scale -->
+    <Canvas x:Name="RootCanvas"
+            MouseLeftButtonDown="OnMouseLeftButtonDown"
+            Cursor="SizeAll">
+
+        <!-- Clock face image -->
+        <Image x:Name="FaceImage"
+               Stretch="Uniform"
+               RenderOptions.BitmapScalingMode="HighQuality"/>
+
+        <!-- Overlay canvas for tick marks and hands (same size as FaceImage) -->
+        <Canvas x:Name="OverlayCanvas"/>
+
+    </Canvas>
+</Window>
