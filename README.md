@@ -1,8 +1,17 @@
 # OverlayClock
 
-A transparent, always-on-top analog clock overlay for Windows, built with WPF on .NET 10.
+[![Release](https://img.shields.io/github/v/release/kreaton/OverlayClock)](https://github.com/kreaton/OverlayClock/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-lightgrey)
+![.NET 10](https://img.shields.io/badge/.NET-10-lightgrey)
 
-The clock face is a **replaceable image file**. Hands and tick marks are drawn on top of it, so you can use any round dial graphic without recompiling.
+![OverlayClock: an analog clock that floats above everything on your desktop](images/banner.png)
+
+**A transparent, always-on-top analog clock overlay for Windows.**
+
+OverlayClock puts just the dial and hands on your desktop, with no window frame around them, and keeps them above your other windows. Drag the clock anywhere and set its size and opacity to suit.
+
+The clock face is a **replaceable image file**. Hands and tick marks are drawn on top of it, so you can use any round dial graphic without recompiling. The clock can also run on 24-hour, decimal, shift or Swatch @beats time, or on a time system you define yourself. It's built with WPF on .NET 10.
 
 ## Features
 
@@ -90,6 +99,8 @@ To use a custom system, expand **Custom time system…** in Settings and leave i
 ```
 OverlayClock.slnx
 README.md
+images/
+└── banner.png                    picture at the top of this README
 OverlayClock/
 ├── Assets/
 │   ├── clock.ico                 application icon
