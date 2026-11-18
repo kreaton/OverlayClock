@@ -4,6 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-lightgrey)
 ![.NET 10](https://img.shields.io/badge/.NET-10-lightgrey)
+[![GitHub stars](https://img.shields.io/github/stars/kreaton/OverlayClock?style=flat&logo=github&color=yellow)](https://github.com/kreaton/OverlayClock/stargazers)
+
+⭐ If OverlayClock earns a place on your machine, [star it on GitHub](https://github.com/kreaton/OverlayClock) — it's free, made by one developer, and stars are how other people find it.
 
 ![OverlayClock: an analog clock that floats above everything on your desktop](images/banner.png)
 
